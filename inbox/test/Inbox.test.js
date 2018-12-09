@@ -27,5 +27,9 @@ describe('Inbox', () => {
   it('deploys a contract and checks if address is assign', () => {
     assert.ok(typeof inbox.options.address==='string');
   });
-
+  it('has a default message', async () => {
+    // call method message on the contract
+    const message = await inbox.methods.message().call();
+    assert.equal(message, 'Hi there!');
+  });
 });
