@@ -2,7 +2,8 @@ const assert = require('assert')
 const ganache = require('ganache-cli')
 const Web3 = require('web3')
 // Create instance of web3 and connect it to local test network hosted on my machine
-const web3 = new Web3(ganache.provider())
+const provider = ganache.provider();
+const web3 = new Web3(provider);
 
 const { interface, bytecode } = require('../compile');
 
@@ -16,13 +17,15 @@ beforeEach(async () => {
     
     // Use one of those accounts to deploy the contract
     inbox = await new web3.eth.Contract(JSON.parse(interface))
+      // deploy contract
       .deploy({data: bytecode, arguments: ['Hi there!']})
+      // send from first account in the local test network
       .send({ from: accounts[0], gas: '1000000' });
 });
     
 describe('Inbox', () => {
-  it('deploys a contract', () => {
-    assert.ok(inbox.options.address);
+  it('deploys a contract and checks if address is assign', () => {
+    assert.ok(typeof inbox.options.address==='string');
   });
 
 });
