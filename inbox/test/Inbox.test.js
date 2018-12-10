@@ -9,6 +9,8 @@ const { interface, bytecode } = require('../compile');
 
 let accounts;
 let inbox;
+const INITIAL_MESSAGE = 'Hi there!'
+const UPDATED_MESSAGE = 'Bye there'
 
 beforeEach(async () => {
   // Get a list of all accounts from Ganache local test network
@@ -18,7 +20,7 @@ beforeEach(async () => {
     // Use one of those accounts to deploy the contract
     inbox = await new web3.eth.Contract(JSON.parse(interface))
       // deploy contract
-      .deploy({data: bytecode, arguments: ['Hi there!']})
+      .deploy({data: bytecode, arguments: [INITIAL_MESSAGE]})
       // send from first account in the local test network
       .send({ from: accounts[0], gas: '1000000' });
 });
@@ -30,6 +32,13 @@ describe('Inbox', () => {
   it('has a default message', async () => {
     // call method message on the contract
     const message = await inbox.methods.message().call();
-    assert.equal(message, 'Hi there!');
+    assert.equal(message, INITIAL_MESSAGE);
+  });
+  it('can update the message', async () => {
+    // call method message on the contract
+    await inbox.methods.setMessage(UPDATED_MESSAGE).send({from: accounts[0]})
+    const message = await inbox.methods.message().call()
+    
+    assert.equal(message, UPDATED_MESSAGE);
   });
 });
