@@ -4,6 +4,7 @@ contract Lottery {
     address public manager;
     // create dynamic array that can only contain addresses
     address[] public players;
+    
     function Lottery() public {
         manager = msg.sender;
     }
@@ -12,8 +13,10 @@ contract Lottery {
         require(msg.value > .01 ether);
         players.push(msg.sender);
     }
+
     function random() public view returns (uint){
        return uint(keccak256(block.difficulty, now, players));
+
     }
     function pickWinner() public restricted {
         // only manager can call the contract
