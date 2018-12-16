@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import './App.css'
 import web3 from './web3'
 import lottery from './lottery'
@@ -8,7 +9,8 @@ class App extends Component {
     manager: '',
     players: [],
     balance: '',
-    value: ''
+    value: '',
+    message: ''
   }
 
   async componentDidMount() {
@@ -21,16 +23,31 @@ class App extends Component {
   onSubmit = async event => {
     event.preventDefault()
     const accounts = await web3.eth.getAccounts()
+    this.setState({ message: 'Waiting on transaction success...' })
     await lottery.methods.enter().send({
       from: accounts[0],
       value: web3.utils.toWei(this.state.value, 'ether')
     })
+    this.setState({ message: 'You have enter the lottery!' })
   }
   render() {
+    const Title = styled.h1`
+      font-size: 1.5em;
+      text-align: center;
+      color: blue;
+    `
+    const Button = styled.button`
+      color: darkblue;
+      font-size: 1em;
+      margin: 1em;
+      padding: 0.25em 1em;
+      border: 2px solid darkblue;
+      border-radius: 3px;
+    `
     web3.eth.getAccounts().then(console.log)
     return (
       <div className="App">
-        <h2>Lottery Contract</h2>
+        <Title>Lottery Contract</Title>
         <p>
           This contract is managed by <b>{this.state.manager}</b>!
         </p>
@@ -48,8 +65,11 @@ class App extends Component {
               onChange={event => this.setState({ value: event.target.value })}
             />
           </div>
-          <button>Enter lottery</button>
+          <Button>Enter lottery</Button>
         </form>
+
+        <hr />
+        <p>{this.state.message}</p>
       </div>
     )
   }
