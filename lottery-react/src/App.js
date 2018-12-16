@@ -53,23 +53,42 @@ class App extends Component {
       border: 2px solid darkblue;
       border-radius: 3px;
     `
+    const Text = styled.p`
+      color: darkblue;
+      font-size: 1 em;
+      margin: 0.5em;
+      font-weight: bold;
+      padding: 0.25em 1em;
+    `
+    const Input = styled.input`
+      padding: 0.5em;
+      margin: 0.5em;
+      color: darkblue;
+      background: lightblue;
+      border: none;
+      border-radius: 3px;
+    `
+    const TextBox = styled.p`
+      padding: 0.15em;
+      margin: 0.2em;
+    `
     web3.eth.getAccounts().then(console.log)
     return (
       <div className="App">
         <Title>Lottery Contract</Title>
-        <p>
+        <TextBox>
           This contract is managed by <b>{this.state.manager}</b>!
-        </p>
-        <p>
+        </TextBox>
+        <TextBox>
           There are currently {this.state.players.length} competing to win{' '}
           {web3.utils.fromWei(this.state.balance, 'ether')} ether!
-        </p>
+        </TextBox>
 
         <form onSubmit={this.onSubmit}>
-          <div className="title">Do you want to win the lottery?</div>
+          <TextBox>Do you want to win the lottery?</TextBox>
           <div>
-            <label>Amount of ether to enter</label>
-            <input
+            <label>Amount of ether to enter:</label>
+            <Input
               value={this.state.value}
               onChange={event => this.setState({ value: event.target.value })}
             />
@@ -78,7 +97,7 @@ class App extends Component {
         </form>
 
         <hr />
-        <h4>Ready to pick a winner?</h4>
+        <Text>Ready to pick a winner?</Text>
         <Button onClick={this.onClick}>Pick winner!</Button>
         <hr />
         <p>{this.state.message}</p>
