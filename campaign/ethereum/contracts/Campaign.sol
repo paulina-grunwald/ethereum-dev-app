@@ -11,8 +11,9 @@ contract Campaign {
     Request[] public request;
     address public manager;
     uint public minimumContribution;
-    address[] public approvers;
+    mapping(address => bool) public approvers;
     
+    // give access to functions
     modifier restricted {
         // only manager can run function
         require(msg.sender == manager);
@@ -27,11 +28,14 @@ contract Campaign {
     
     function contribute() public payable {
         require(msg.value > minimumContribution);
-        approvers.push(msg.sender);
+        approvers[msg.sender] = true;
     }
+    
+    //function creates a struct Request and adds it Request array
     function createRequest(string description, uint value, address recipient) 
         public restricted {
-            Request newRequest = Request({
+            // create new request in memory
+            Request memory newRequest = Request({
                description: description,
                value: value,
                recipient: recipient,
