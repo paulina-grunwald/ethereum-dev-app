@@ -33,6 +33,7 @@ contract Campaign {
     
     //function creates a struct Request and adds it Request array
     function createRequest(string description, uint value, address recipient) 
+      
         public restricted {
             // create new request in memory
             Request memory newRequest = Request({
