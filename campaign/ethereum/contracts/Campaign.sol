@@ -2,7 +2,7 @@ pragma solidity ^0.4.17;
 
 contract Campaign {
     
-    struct Request {
+   struct Request {
         string description;
         uint value;
         address recipient;
@@ -16,6 +16,7 @@ contract Campaign {
     uint public minimumContribution;
     mapping(address => bool) public approvers;
     uint public approversCount;
+
     
     // give access to functions
     modifier restricted {
@@ -24,9 +25,9 @@ contract Campaign {
         _;
     }
     
-    function Campain(uint minimum) public {
-        // person creating the contract
-        manager = msg.sender;
+     function Campaign(uint minimum, address creator) public {
+         // person creating the contract
+        manager = creator;
         minimumContribution = minimum;
     }
     
@@ -37,18 +38,16 @@ contract Campaign {
     }
     
     //function creates a struct Request and adds it Request array
-    function createRequest(string description, uint value, address recipient) 
-        public restricted {
-            // create new request in memory
-            Request memory newRequest = Request({
-               description: description,
-               value: value,
-               recipient: recipient,
-               complete: false,
-               approvalCount: 0
-            });
-            
-            requests.push(newRequest);
+    function createRequest(string description, uint value, address recipient) public restricted {
+        Request memory newRequest = Request({
+           description: description,
+           value: value,
+           recipient: recipient,
+           complete: false,
+           approvalCount: 0
+        });
+
+        requests.push(newRequest);
     }
     
     function approveRequest(uint index) public {
@@ -60,5 +59,14 @@ contract Campaign {
 
         request.approvals[msg.sender] = true;
         request.approvalCount++;
+    }
+    
+    function finalizeRequest(uint index) public restricted {
+        // create a variable that refers to request struct
+        Request storage request = requests[index];
+        require(request.approvalCount > (approversCount/2));
+        require(!request.complete);
+        request.recipient.transfer(request.value);
+        request.complete = true;
     }
 }
