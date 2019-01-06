@@ -16,6 +16,7 @@ fs.ensureDirSync(buildPath)
 // Write output to the 'build' directory
 
 for (let contract in output) {
+  // console.log(contract)
   fs.outputJsonSync(
     path.resolve(buildPath, contract.replace(':', '') + '.json'),
     output[contract]
