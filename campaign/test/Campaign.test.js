@@ -40,4 +40,17 @@ describe('Campaigns', () => {
     assert.ok(factory.options.address)
     assert.ok(campaign.options.address)
   })
+
+  it('marks caller as the campain manager', async () => {
+    const manager = await campaign.methods.manager().call()
+    assert.strictEqual(accounts[0], manager)
+  })
+  it('allows people to contribute and marks them as approvers', async () => {
+    await campaign.methods.contribute().send({
+      value: '200',
+      from: accounts[1]
+    })
+    const isContributor = await campaign.methods.approvers(accounts[1]).call()
+    assert(isContributor)
+  })
 })
