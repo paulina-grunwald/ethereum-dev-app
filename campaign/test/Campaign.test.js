@@ -53,4 +53,47 @@ describe('Campaigns', () => {
     const isContributor = await campaign.methods.approvers(accounts[1]).call()
     assert(isContributor)
   })
+  it('check if the minimum contribution was added', async () => {
+    try {
+      await campaign.methods.contribute().send({
+        value: '99',
+        from: accounts[1]
+      })
+      assert(false)
+    } catch (err) {
+      assert(err)
+    }
+  })
+  it('allows manager to make a request', async () => {
+    await campaign.methods
+      .createRequest('Buy cables', '1000', accounts[1])
+      .send({ from: accounts[0], gas: '1000000' })
+    const request = await campaign.methods.requests(0).call()
+    assert.strictEqual('Buy cables', request.description)
+  })
+  it('processes request', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether')
+    })
+    await campaign.methods
+      .createRequest('Buy batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: '1000000'
+      })
+    await campaign.methods.approveRequest(0).send({
+      from: accounts[0],
+      gas: '1000000'
+
+    })
+    await campaign.methods.finalizeRequest(0).send({
+      from: accounts[0],
+      gas: '1000000'
+    })
+    let balance = await web3.eth.getBalance(accounts[1])
+    balance = web3.utils.fromWei(balance, 'ether')
+    balance = parseFloat(balance)
+    assert(balance > 104)
+  })
 })
