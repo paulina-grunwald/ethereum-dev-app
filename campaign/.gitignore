@@ -2,13 +2,13 @@
 
 # dependencies
 /node_modules
-
+/deploy.js
 # testing
 /coverage
 
 # production
 /build
-
+.next
 # misc
 .DS_Store
 .env.local
