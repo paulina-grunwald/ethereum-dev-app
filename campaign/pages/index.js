@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import factory from '../ethereum/factory'
 
 class CampaignIndex extends Component {
-  async componentDidMount () {
-    // retireve array of deployed campaigns
+  // lifecycle methods from next.js like componentDidMount
+  static async getInitialProps () {
     const campaigns = await factory.methods.getDeployedCampaigns().call()
-    console.log('campaigns', campaigns)
+    return { campaigns }
   }
   render () {
     return (
       <div>
-        Campaigns
+        {this.props.campaigns[0]}
       </div>
     )
   }
