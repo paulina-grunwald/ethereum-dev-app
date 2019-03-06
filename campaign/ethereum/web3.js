@@ -2,6 +2,7 @@ import Web3 from 'web3'
 
 let web3
 
+// check if we are in the browser
 if (typeof window !== 'undefined' && typeof window.web !== 'undefined') {
   // We are in the browser
   // create instance of Web3 - get access to Metamask
