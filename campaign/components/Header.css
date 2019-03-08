@@ -1,0 +1,10 @@
+.plus-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.plus-icon {
+  margin-right: 10px;
+}

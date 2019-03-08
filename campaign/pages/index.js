@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import factory from '../ethereum/factory'
 import { Card, Button } from 'semantic-ui-react'
-
+import Layout from '../components/Layout'
 class CampaignIndex extends Component {
   // lifecycle methods from next.js like componentDidMount
   static async getInitialProps () {
@@ -20,7 +20,8 @@ class CampaignIndex extends Component {
   }
   render () {
     return (
-      <div>
+      
+      <Layout>
         <link
           rel="stylesheet"
           href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
@@ -32,7 +33,7 @@ class CampaignIndex extends Component {
           icon='add circle'
           primary
         />
-      </div>
+      </Layout>
     )
   }
 }
