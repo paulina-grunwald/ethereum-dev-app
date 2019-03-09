@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import Head from 'next/head'
+
 export default function (props) {
   return (
     <div className='ui container'>
@@ -13,7 +14,9 @@ export default function (props) {
       </Head>
       <Header />
       {props.children}
-      <h1>I am a footer</h1>
+      {/* <div>
+        <div className="ui container"><p>Place sticky footer content here.</p></div>
+      </div> */}
     </div>
   )
 }

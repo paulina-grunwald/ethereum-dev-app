@@ -2,18 +2,22 @@ import React, { Component } from 'react'
 import factory from '../ethereum/factory'
 import { Card, Button } from 'semantic-ui-react'
 import Layout from '../components/Layout'
+import { Link } from '../routes'
 class CampaignIndex extends Component {
   // lifecycle methods from next.js like componentDidMount
   static async getInitialProps () {
-    const campaigns = await factory.methods.getDeployedCampaigns().call();
-    return { campaigns } 
+    const campaigns = await factory.methods.getDeployedCampaigns().call()
+    return { campaigns }
   }
-
   renderCampaigns () {
     const items = this.props.campaigns.map(address => {
       return {
         header: address,
-        description: 'test',
+        description: (
+          <Link route={`/campaigns/${address}`}>
+            <a>View Campagin</a>
+          </Link>
+        ),
         fluid: true
       }
     })
@@ -21,15 +25,22 @@ class CampaignIndex extends Component {
   }
   render () {
     return (
-      
       <Layout>
-        <h3>Open Campaigns</h3>
-        <Button
-          floated='right'
-          content='Create Campaign'
-          icon='add circle'
-          primary
-        />
+        <p className='text'>asdasd</p>
+        <div style={{ 'max-height': '50px' }}>
+          <h3 className='animated swing delay-0.3s slow'>Open Campaigns</h3>
+        </div>
+        <Link route='campaigns/new'>
+          <a>
+            <Button
+              floated='right'
+              content='Create Campaign'
+              icon='add circle'
+              primary
+            />
+          </a>
+        </Link>
+
         {this.renderCampaigns()}
       </Layout>
     )

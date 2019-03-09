@@ -1,16 +1,21 @@
 import React from 'react'
 import { Menu } from 'semantic-ui-react'
+import { Link } from '../routes' 
 
 export default () => {
   return (
     <Menu style={{ marginTop: '10px', padding: '5px' }}>
-      <h1 className="animated fadeInRightBig delay-1s">CrowdCoin</h1>
+      <Link route='/'>CrowdCoin</Link>
       <Menu.Menu position='right'>
-        <span className='item'>Campaigns</span>
         <div>
-          <button className='ui circular facebook icon button'>
-            <i className='plus square outline icon'/>
-          </button>
+          <Link route='/'>
+            <a>Campaigns</a>
+          </Link>
+          <Link route='/campaigns/new'>
+            <button className='ui circular facebook icon button'>
+              <i className='plus square outline icon' />
+            </button>
+          </Link>
         </div>
       </Menu.Menu>
     </Menu>
