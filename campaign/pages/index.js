@@ -5,9 +5,10 @@ import Layout from '../components/Layout'
 class CampaignIndex extends Component {
   // lifecycle methods from next.js like componentDidMount
   static async getInitialProps () {
-    const campaigns = await factory.methods.getDeployedCampaigns().call()
-    return { campaigns }
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
+    return { campaigns } 
   }
+
   renderCampaigns () {
     const items = this.props.campaigns.map(address => {
       return {
@@ -23,7 +24,8 @@ class CampaignIndex extends Component {
       
       <Layout>
         <h3>Open Campaigns</h3>
-        <Button floated='right'
+        <Button
+          floated='right'
           content='Create Campaign'
           icon='add circle'
           primary
