@@ -14,9 +14,6 @@ export default function (props) {
       </Head>
       <Header />
       {props.children}
-      {/* <div>
-        <div className="ui container"><p>Place sticky footer content here.</p></div>
-      </div> */}
     </div>
   )
 }

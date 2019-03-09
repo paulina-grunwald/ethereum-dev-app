@@ -26,8 +26,7 @@ class CampaignIndex extends Component {
   render () {
     return (
       <Layout>
-        <p className='text'>asdasd</p>
-        <div style={{ 'max-height': '50px' }}>
+        <div>
           <h3 className='animated swing delay-0.3s slow'>Open Campaigns</h3>
         </div>
         <Link route='campaigns/new'>
