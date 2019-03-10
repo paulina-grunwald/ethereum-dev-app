@@ -8,10 +8,8 @@
     "dev": "node server.js",
     "build": "next build"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Paulina Grunwald",
   "dependencies": {
-    "animate.css": "^3.7.0",
     "fs-extra": "^5.0.0",
     "ganache-cli": "^6.0.3",
     "mocha": "^4.1.0",
