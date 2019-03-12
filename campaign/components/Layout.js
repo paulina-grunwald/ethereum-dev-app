@@ -1,19 +1,21 @@
 import React from 'react'
-import Header from './Header'
+import { Container } from 'semantic-ui-react'
 import Head from 'next/head'
+import Header from './Header'
 
-export default function (props) {
+export default props => {
   return (
-    <div className='ui container'>
+    <Container>
       <Head>
         <link
-          rel='stylesheet'
-          href='//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css'
+          rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
         />
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'/>
+        <link href="/statics/styles.css" rel="stylesheet" />
       </Head>
+
       <Header />
       {props.children}
-    </div>
+    </Container>
   )
 }
