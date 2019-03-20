@@ -1,7 +1,6 @@
 import Web3 from 'web3'
 
 let web3
-
 // check if we are in the browser
 if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   // We are in the browser

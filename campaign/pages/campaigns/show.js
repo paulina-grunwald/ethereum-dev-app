@@ -6,8 +6,8 @@ import web3 from '../../ethereum/web3'
 import ContributeForm from '../../components/ContributeForm'
 import { Link } from '../../routes'
 
-export default class CampaignShow extends Component {
-  static async getInitialProps (props) {
+class CampaignShow extends Component {
+  static async getInitialProps(props) {
     const campaign = Campaign(props.query.address)
 
     const summary = await campaign.methods.getSummary().call()
@@ -22,7 +22,7 @@ export default class CampaignShow extends Component {
     }
   }
 
-  renderCards () {
+  renderCards() {
     const {
       balance,
       manager,
@@ -68,7 +68,7 @@ export default class CampaignShow extends Component {
     return <Card.Group items={items} />
   }
 
-  render () {
+  render() {
     return (
       <Layout>
         <h3>Campaign Show</h3>
@@ -80,11 +80,12 @@ export default class CampaignShow extends Component {
               <ContributeForm address={this.props.address} />
             </Grid.Column>
           </Grid.Row>
+
           <Grid.Row>
             <Grid.Column>
               <Link route={`/campaigns/${this.props.address}/requests`}>
                 <a>
-                  <Button primary>View Requests</Button>
+                  <Button className="ui button primary">View Requests</Button>
                 </a>
               </Link>
             </Grid.Column>
@@ -95,3 +96,4 @@ export default class CampaignShow extends Component {
   }
 }
 
+export default CampaignShow
